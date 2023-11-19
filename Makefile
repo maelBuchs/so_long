@@ -1,33 +1,43 @@
-NAME	 =	libftprintf.a
-COMP	 =	gcc
-CFLAGS	 =	-Wall -Werror -Wextra -g
-HEAD	=	includes
-libft	=	libft/
-SRC		=	srcs/ft_printf.c\
-			srcs/ft_printf_2.c\
-			srcs/ft_printf_3.c\
+NAME =	so_long
 
-OBJ = $(SRC:.c=.o)
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+MLX = -L./minilibx-linux -lmlx -lX11 -lXext -lm
+RM = rm -rf
+HEAD = so_long.h
+SRCS = 	main.c\
+		so_long_1.c\
+		so_long_2.c\
 
-all : $(NAME)
+OBJS = $(SRCS:.c=.o)
 
-%.o : %.c
-	@$(COMP) -fPIC $(CFLAGS) -o $@ -c $< -I $(HEAD)
+TOTAL_FILES = $(words $(SRCS))
 
-$(NAME) : $(OBJ)
-	@make --no-print-directory -C $(libft)
-	cp libft/libft.a $(NAME)
-	@ar -rcs $(NAME) $(OBJ)
+all:			$(NAME)
+				@clear
+				@echo "Compilation terminee";
 
-clean :
-	@make clean --no-print-directory -C $(libft)
-	@rm -f $(OBJ)
+$(NAME):		$(OBJS)
+				make --no-print-directory -C libft/
+				make --no-print-directory -C minilibx-linux/
+				@$(CC) -o $(NAME)  $(HEAD) $(OBJS) $(CFLAGS) $(MLX) libft/libft.a minilibx-linux/libmlx.a
+
+.c.o:
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+clean:			
+				make clean --no-print-directory -C  libft/
+				make clean --no-print-directory -C minilibx-linux/
+				@$(RM) $(OBJS)
+				@clear
+				@echo "Clean OK";
 
 
-fclean : clean
-	@make fclean --no-print-directory -C $(libft)
-	@rm -f $(NAME) libft.a
+fclean: 		clean
+				@$(RM) $(NAME) libft/libft.a libmlx_Linux.a
+				@clear
+				@echo "Full Clean OK ";
 
-re : fclean all
+re: 			fclean all
 
-.PHONY: all fclean clean re
+.PHONY:			all clean fclean re
