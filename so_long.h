@@ -27,15 +27,17 @@ typedef struct s_character
 
 typedef struct s_data
 {
-	void	*mlx;
-	void	*win;
-	void	*character;
-	void	*obstacle;
-	void	*enemy;
-	void	*background;
-	int		w;
-	int		h;
-	t_character *player;
+	void			*mlx;
+	void			*win;
+	void			*character;
+	void			*obstacle;
+	void			*enemy;
+	void			*background;
+	void			*goal;
+	int				w;
+	int				h;
+	unsigned long	moves;
+	t_character 	*player;
 }	t_data;
 
 

@@ -18,9 +18,10 @@ int	game(t_data *data)
 	
 	data -> mlx = mlx_init();
 	data -> win = mlx_new_window
-		(data -> mlx, data -> w * 32, data -> h * 32, "Affichage d'image");
+		(data -> mlx, data -> w * 32, data -> h * 32, "so_long");
 	init_textures(data);
 	set_background(data -> w, data -> h, data);
+
 	update_character(data, player, 0);
 	mlx_expose_hook(data -> win, redraw, data);
 	mlx_hook(data -> win, 17, 1L << 17, close_window, data);
@@ -34,12 +35,12 @@ int	main(void)
 	t_data	data;
 	t_character	player;
 
-	data.w = 100;
-	data.h = 100;
+	data.w = 10;
+	data.h = 10;
 	data.player = &player;
 	player.x = 0;
 	player.y = 0;
-	
+	data.moves = 0;
 	game(&data);
 }
 

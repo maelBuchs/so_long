@@ -32,6 +32,8 @@ void	init_textures(t_data *data)
 	int	img_width;
 	int	img_height;
 
+	data -> goal = mlx_xpm_file_to_image
+		(data -> mlx, "texture/goal.xpm", &img_width, &img_height);
 	data -> character = mlx_xpm_file_to_image
 		(data -> mlx, "texture/character.xpm", &img_width, &img_height);
 	data -> background = mlx_xpm_file_to_image
@@ -49,6 +51,7 @@ void	set_background(int w, int h, t_data *data)
 
 	i = 0;
 	j = 0;
+	
 	while (i < w)
 	{
 		j = 0;
@@ -56,10 +59,15 @@ void	set_background(int w, int h, t_data *data)
 		{
 			mlx_put_image_to_window
 				(data -> mlx, data -> win, data -> background, 32 * j, 32 * i);
+			if (j == 0 || i == 0 || i == w - 1 || j == h - 1)
+				mlx_put_image_to_window
+					(data -> mlx, data -> win, data -> obstacle, 32 * j, 32 * i);
 			j++;
 		}
 		i++;
 	}
+	mlx_put_image_to_window
+					(data -> mlx, data -> win, data -> goal, 32 * 5, 32 * 5);
 }
 
 int	redraw(t_data *data)
@@ -75,16 +83,19 @@ int	check_key(int keycode, t_data *data)
 {
 	t_character *player = data->player;
 
-	printf("%d\n", keycode);
 	if (keycode == 119) 			//up  0 -1
 		update_character(data, player, 1);
-	if (keycode == 100) 			//right +1 0
+	else if (keycode == 100) 			//right +1 0
 		update_character(data, player, 2);
-	if (keycode == 115) 			// down 0 +1
+	else if (keycode == 115) 			// down 0 +1
 		update_character(data, player, 3);
-	if (keycode == 97)				 //left -1 0
+	else if (keycode == 97)				 //left -1 0
 		update_character(data, player, 4);
-	if (keycode == 65307)
+	else if (keycode == 65307)
 		close_window(data);
+	else 
+		return (0);
+	data -> moves ++;
+	printf("%ld moves, loser\n", data->moves);
 	return (0);
 }
