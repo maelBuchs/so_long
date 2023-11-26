@@ -23,6 +23,7 @@ int	close_window(t_data *data)
 	if (data -> obstacle)
 		mlx_destroy_image(data->mlx, data->obstacle);
 	if (data -> win)
+	
 		mlx_destroy_window(data->mlx, data->win);
 	exit(0);
 }
