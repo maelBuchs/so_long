@@ -1,6 +1,6 @@
 NAME =	so_long
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 MLX = -L./minilibx-linux -lmlx -lX11 -lXext -lm
 RM = rm -rf
@@ -18,9 +18,9 @@ all:			$(NAME)
 				@echo "Compilation terminee";
 
 $(NAME):		$(OBJS)
-				make --no-print-directory -C libft/
+				make --no-print-directory -C Libft/
 				make --no-print-directory -C minilibx-linux/
-				@$(CC) -o $(NAME)  $(HEAD) $(OBJS) $(CFLAGS) $(MLX) libft/libft.a minilibx-linux/libmlx.a
+				@$(CC) -o $(NAME)  $(HEAD) $(OBJS) $(CFLAGS) $(MLX) Libft/libft.a minilibx-linux/libmlx.a
 
 .c.o:
 	@$(CC) $(CFLAGS) -c $< -o $@
