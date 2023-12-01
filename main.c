@@ -15,10 +15,10 @@
 int	game(t_data *data)
 {
 	t_character *player = data->player;
-	
 	data -> mlx = mlx_init();
 	data -> win = mlx_new_window
 		(data -> mlx, data -> w * 32, data -> h * 32, "so_long");
+	set_pos(data);
 	init_textures(data);
 	set_background(data -> w, data -> h, data);
 
@@ -30,11 +30,17 @@ int	game(t_data *data)
 	return (0);
 }
 
-int	main(void)
+int	main() //int argc, char *argv[]
 {
 	t_data	data;
 	t_character	player;
 
+	// if(argc != 2)
+	// {
+	// 	ft_putstr_fd("Error\nYou have to select a map\n", 1);
+	// 	return (0);
+	// }
+	read_map("maps/test.ber", &data);
 	data.w = 10;
 	data.h = 10;
 	data.player = &player;

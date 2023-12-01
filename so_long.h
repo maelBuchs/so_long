@@ -17,6 +17,7 @@
 # include "Libft/libft.h"
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
+# include <fcntl.h>
 
 typedef struct s_character
 {
@@ -25,7 +26,7 @@ typedef struct s_character
 	int		x;
 }	t_character;
 
-typedef struct s_data
+typedef	struct s_data
 {
 	void			*mlx;
 	void			*win;
@@ -37,16 +38,20 @@ typedef struct s_data
 	int				w;
 	int				h;
 	unsigned long	moves;
-	t_character 	*player;
+	char			**map;
+	t_character		*player;
 }	t_data;
 
-
-int	close_window(t_data *data);
+int		close_window(t_data *data);
 void	init_textures(t_data *data);
 void	set_background(int w, int h, t_data *data);
-int redraw(t_data *data);
-int 	check_key(int keycode, t_data *data);
-int	game(t_data *data);
-int	update_character(t_data *data, t_character *player, int option);
-
+int		redraw(t_data *data);
+int		check_key(int keycode, t_data *data);
+int		game(t_data *data);
+int		update_character(t_data *data, t_character *player, int option);
+int		read_map(char *path, t_data *data);
+void	enlarge_tab(t_data *data);
+void	free_tab(t_data *data, int len);
+void	print_tab(t_data *data);
+void	set_pos(t_data *data);
 #endif

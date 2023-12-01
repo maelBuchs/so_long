@@ -14,6 +14,8 @@
 
 int	close_window(t_data *data)
 {
+	if (data -> win)
+		mlx_destroy_window(data->mlx, data->win);
 	if (data -> background)
 		mlx_destroy_image(data->mlx, data->background);
 	if (data -> character)
@@ -22,9 +24,11 @@ int	close_window(t_data *data)
 		mlx_destroy_image(data->mlx, data->enemy);
 	if (data -> obstacle)
 		mlx_destroy_image(data->mlx, data->obstacle);
-	if (data -> win)
-	
-		mlx_destroy_window(data->mlx, data->win);
+	if (data -> mlx)
+	{
+		mlx_destroy_display(data -> mlx);
+		free(data -> mlx);
+	}
 	exit(0);
 }
 
