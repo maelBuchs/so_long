@@ -54,4 +54,5 @@ void	enlarge_tab(t_data *data);
 void	free_tab(t_data *data, int len);
 void	print_tab(t_data *data);
 void	set_pos(t_data *data);
+void	put_misc(char c, t_data *data, int i, int j);
 #endif

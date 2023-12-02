@@ -64,15 +64,31 @@ void	set_background(int w, int h, t_data *data)
 		{
 			mlx_put_image_to_window
 				(data -> mlx, data -> win, data -> background, 32 * j, 32 * i);
-			if (j == 0 || i == 0 || i == w - 1 || j == h - 1)
-				mlx_put_image_to_window
-					(data -> mlx, data -> win, data -> obstacle, 32 * j, 32 * i);
+				put_misc(data->map[i][j], data, i, j);
 			j++;
 		}
 		i++;
 	}
 	mlx_put_image_to_window
 					(data -> mlx, data -> win, data -> goal, 32 * 5, 32 * 5);
+}
+
+void put_misc(char c, t_data *data, int i, int j)
+{
+	if (c == '1')
+		mlx_put_image_to_window
+				(data -> mlx, data -> win, data -> obstacle, 32 * j, 32 * i);
+	if (c == 'C')
+		mlx_put_image_to_window
+				(data -> mlx, data -> win, data -> enemy, 32 * j, 32 * i);
+	if (c == 'E')
+		mlx_put_image_to_window
+				(data -> mlx, data -> win, data -> goal, 32 * j, 32 * i);
+	if (c == 'P' && data->player->x == 0)
+	{
+		data->player->x = i;
+		data->player->y = j;
+	}
 }
 
 int	redraw(t_data *data)
