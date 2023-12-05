@@ -37,7 +37,8 @@ typedef	struct s_data
 	void			*goal;
 	int				w;
 	int				h;
-	unsigned long	moves;
+	long			colectibles;
+	long			moves;
 	char			**map;
 	t_character		*player;
 }	t_data;
@@ -55,4 +56,6 @@ void	free_tab(t_data *data, int len);
 void	print_tab(t_data *data);
 void	set_pos(t_data *data);
 void	put_misc(char c, t_data *data, int i, int j);
+void	print_display(t_data *data);
+int		check_move(t_data *data);
 #endif

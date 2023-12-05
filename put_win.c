@@ -69,8 +69,6 @@ void	set_background(int w, int h, t_data *data)
 		}
 		i++;
 	}
-	mlx_put_image_to_window
-					(data -> mlx, data -> win, data -> goal, 32 * 5, 32 * 5);
 }
 
 void put_misc(char c, t_data *data, int i, int j)
@@ -89,6 +87,8 @@ void put_misc(char c, t_data *data, int i, int j)
 		data->player->x = i;
 		data->player->y = j;
 	}
+	if (c == 'C' && data->moves == 0)
+		data->colectibles++;
 }
 
 int	redraw(t_data *data)
@@ -116,7 +116,7 @@ int	check_key(int keycode, t_data *data)
 		close_window(data);
 	else 
 		return (0);
+	print_display(data);
 	data -> moves ++;
-	printf("%ld moves, loser\n", data->moves);
 	return (0);
 }

@@ -18,12 +18,15 @@ int	update_character(t_data *data, t_character *player, int option)
 				(data -> mlx, data -> win, data -> background, 32 * player->y, 32 * player->x);
 	if (option == 1 && data -> map[player -> x - 1][player->y] != '1')
 		data->player->x -= 1;
-	if (option == 2 && data -> map[player -> x][player->y + 1] != '1')
+	else if (option == 2 && data -> map[player -> x][player->y + 1] != '1')
 		data->player->y += 1;
-	if (option == 3 && data -> map[player -> x + 1][player->y] != '1')
+	else if (option == 3 && data -> map[player -> x + 1][player->y] != '1')
 		data->player->x += 1;
-	if (option == 4 && data -> map[player -> x][player->y - 1] != '1')
+	else if (option == 4 && data -> map[player -> x][player->y - 1] != '1')
 		data->player->y -= 1;
+	else 
+		data->moves--;
+	check_move(data);
 	mlx_put_image_to_window
 		(data -> mlx, data -> win, data -> character,32 * data->player->y, 32 * data->player->x);
 	return (0);
@@ -46,7 +49,7 @@ int	read_map(char *path, t_data *data)
 		data->map[i] = get_next_line(fd);
 		i++;
 	}
-	print_tab(data);
+	//print_tab(data);
 	return (i - 1);
 }
 
