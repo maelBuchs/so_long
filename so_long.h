@@ -75,4 +75,6 @@ void 	print_error(t_data *data, int error);
 void	check_elements(t_data *data, t_content *content);
 int		check_map(t_data *data);
 void	fancy_error(t_data *data, t_content *content);
+void	check_border(t_data *data);
+
 #endif

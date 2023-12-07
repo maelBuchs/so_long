@@ -82,11 +82,6 @@ void put_misc(char c, t_data *data, int i, int j)
 	if (c == 'E')
 		mlx_put_image_to_window
 				(data -> mlx, data -> win, data -> goal, 32 * j, 32 * i);
-	if (c == 'P' && data->player->x == 0)
-	{
-		data->player->x = i;
-		data->player->y = j;
-	}
 	if (c == 'C' && data->moves == 0)
 		data->collectibles++;
 }
