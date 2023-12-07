@@ -12,21 +12,54 @@
 
 #include "so_long.h"
 
-int		check_move(t_data *data)
-{
-
-	if (data->map[data->player->x][data->player->y] == 'C' && data->player->x != 0 && data->player->y != 0)
-	{
-		data->collectibles--;
-		data->map[data->player->x][data->player->y] = '0';
-	}
-	if (data -> collectibles == 0 && data->map[data->player->x][data->player->y] == 'E' && data->player->x != 0 && data->player->y != 0)
-		close_window(data);	
-	return 0;
-}
 void	print_display(t_data *data)
 {
-		write(1, "\033[H\033[J", 7);
-		printf("%ld moves, loser\n", data->moves);
-		printf("%ld donkeys left\n", data->collectibles);
+	//write(1, "\033[H\033[J", 7);
+	ft_putnbr_fd(data->moves, 1);
+	ft_putstr_fd(" moves, loser\n", 1);
+	ft_putnbr_fd(data->collectibles, 1);
+	ft_putstr_fd(" donkeys left\n", 1);
+}
+
+int	close_window(t_data *data)
+{
+	if (data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->background)
+		mlx_destroy_image(data->mlx, data->background);
+	if (data->character)
+		mlx_destroy_image(data->mlx, data->character);
+	if (data->enemy)
+		mlx_destroy_image(data->mlx, data->enemy);
+	if (data->obstacle)
+		mlx_destroy_image(data->mlx, data->obstacle);
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	close_tabs(data);
+	exit(0);
+}
+
+void	close_tabs(t_data *data)
+{
+	if (data->map)
+		free_tab(data->map, data->h);
+	if (data->bfs_map)
+		free_tab(data->bfs_map, data->h);
+}
+
+void	free_tab(char **tab, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (tab[i])
+			free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

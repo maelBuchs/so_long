@@ -11,6 +11,7 @@ SRCS = 	main.c\
 		read_tab.c\
 		use_map.c\
 		check_map.c\
+		is_solvable.c\
 
 OBJS = $(SRCS:.c=.o)
 
