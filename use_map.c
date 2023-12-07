@@ -40,10 +40,10 @@ int		check_move(t_data *data)
 
 	if (data->map[data->player->x][data->player->y] == 'C' && data->player->x != 0 && data->player->y != 0)
 	{
-		data->colectibles--;
-		data->map[data->player->x][data->player->y] = '1';
+		data->collectibles--;
+		data->map[data->player->x][data->player->y] = '0';
 	}
-	if (data -> colectibles == 0 && data->map[data->player->x][data->player->y] == 'E' && data->player->x != 0 && data->player->y != 0)
+	if (data -> collectibles == 0 && data->map[data->player->x][data->player->y] == 'E' && data->player->x != 0 && data->player->y != 0)
 		close_window(data);	
 	return 0;
 }
@@ -51,5 +51,5 @@ void	print_display(t_data *data)
 {
 		write(1, "\033[H\033[J", 7);
 		printf("%ld moves, loser\n", data->moves);
-		printf("%ld donkeys left\n", data->colectibles);
+		printf("%ld donkeys left\n", data->collectibles);
 }

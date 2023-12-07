@@ -1,7 +1,8 @@
 NAME =	so_long
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -g
+# CFLAGS = -Wall -Wextra -Werror -g
 MLX = -L./minilibx-linux -lmlx -lX11 -lXext -lm
 RM = rm -rf
 HEAD = so_long.h
@@ -9,6 +10,7 @@ SRCS = 	main.c\
 		put_win.c\
 		read_tab.c\
 		use_map.c\
+		check_map.c\
 
 OBJS = $(SRCS:.c=.o)
 

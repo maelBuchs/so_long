@@ -26,6 +26,16 @@ typedef struct s_character
 	int		x;
 }	t_character;
 
+typedef struct s_content
+{
+	int	exit;
+	int	start;
+	int	collectible;
+	int	empty;
+	int	obstacle;
+
+}	t_content;
+
 typedef	struct s_data
 {
 	void			*mlx;
@@ -37,8 +47,11 @@ typedef	struct s_data
 	void			*goal;
 	int				w;
 	int				h;
-	long			colectibles;
+	long			collectibles;
 	long			moves;
+	int				*bfs_visited;
+	int				*collectibles_pos;
+	int				*tab;
 	char			**map;
 	t_character		*player;
 }	t_data;
@@ -51,11 +64,15 @@ int		check_key(int keycode, t_data *data);
 int		game(t_data *data);
 int		update_character(t_data *data, t_character *player, int option);
 int		read_map(char *path, t_data *data);
-void	enlarge_tab(t_data *data);
-void	free_tab(t_data *data, int len);
+void	enlarge_char_tab(t_data *data);
+//void	free_tab(char ***tab, int len);
 void	print_tab(t_data *data);
 void	set_pos(t_data *data);
 void	put_misc(char c, t_data *data, int i, int j);
 void	print_display(t_data *data);
 int		check_move(t_data *data);
+void 	print_error(t_data *data, int error);
+void	check_elements(t_data *data, t_content *content);
+int		check_map(t_data *data);
+void	fancy_error(t_data *data, t_content *content);
 #endif

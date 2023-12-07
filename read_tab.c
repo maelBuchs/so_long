@@ -16,6 +16,9 @@ int	update_character(t_data *data, t_character *player, int option)
 {
 	mlx_put_image_to_window
 				(data -> mlx, data -> win, data -> background, 32 * player->y, 32 * player->x);
+	if (data->map[player -> x][player->y] == 'E')
+		mlx_put_image_to_window
+				(data -> mlx, data -> win, data -> goal, 32 * player->y, 32 * player->x);
 	if (option == 1 && data -> map[player -> x - 1][player->y] != '1')
 		data->player->x -= 1;
 	else if (option == 2 && data -> map[player -> x][player->y + 1] != '1')
@@ -26,6 +29,7 @@ int	update_character(t_data *data, t_character *player, int option)
 		data->player->y -= 1;
 	else 
 		data->moves--;
+	data->moves++;
 	check_move(data);
 	mlx_put_image_to_window
 		(data -> mlx, data -> win, data -> character,32 * data->player->y, 32 * data->player->x);
@@ -45,7 +49,7 @@ int	read_map(char *path, t_data *data)
 
 	while(data->map[i - 1])
 	{
-		enlarge_tab(data);
+		enlarge_char_tab(data);
 		data->map[i] = get_next_line(fd);
 		i++;
 	}
@@ -53,7 +57,7 @@ int	read_map(char *path, t_data *data)
 	return (i - 1);
 }
 
-void	enlarge_tab(t_data *data)
+void	enlarge_char_tab(t_data *data)
 {
 	char	**returned;
 	int		i;
@@ -71,26 +75,27 @@ void	enlarge_tab(t_data *data)
 	}
 	returned[i] = 0;
 	returned[i + 1] = 0;
-	free_tab(data, len);
+	if(data -> map)
+		free(data->map);
 	data->map = returned;
 }
 
-void	free_tab(t_data *data, int len)
-{
-	int i;
+// void	free_tab(char ***tab, int len)
+// {
+// 	int i;
 	
-	i = 0;
-	if(data -> map)
-	{
-		while (i < len - 1)
-		{
-			// if(data->map[i])
-			// 	free(data->map[i]);
-			i++;
-		}
-		free(data->map);
-	}
-}
+// 	i = 0;
+// 	if(data -> map)
+// 	{
+// 		while (i < len - 1)
+// 		{
+// 		//	 if(data->map[i])
+// 		//	 	free(data->map[i]);
+// 			i++;
+// 		}
+// 		free(data->map);
+// 	}
+// }
 
 void print_tab(t_data *data)
 {

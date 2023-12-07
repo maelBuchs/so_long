@@ -88,17 +88,25 @@ void put_misc(char c, t_data *data, int i, int j)
 		data->player->y = j;
 	}
 	if (c == 'C' && data->moves == 0)
-		data->colectibles++;
+		data->collectibles++;
 }
 
 int	redraw(t_data *data)
 {
 	t_character *player = data->player;
 
+	if (data->moves == 0)
+		data->collectibles = 0;
 	set_background(data -> w, data -> h, data);
 	update_character(data, player, 0);
 	return (0);
 }
+
+/*	119 = w
+	100 = d
+	115 = s
+	97 = a
+	65307 = escape	*/
 
 int	check_key(int keycode, t_data *data)
 {
@@ -117,6 +125,5 @@ int	check_key(int keycode, t_data *data)
 	else 
 		return (0);
 	print_display(data);
-	data -> moves ++;
 	return (0);
 }

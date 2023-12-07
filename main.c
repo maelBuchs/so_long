@@ -44,10 +44,10 @@ int	main() //int argc, char *argv[]
 	data.w = read_map("maps/test.ber", &data);
 	data.h = ft_strlen(data.map[0]) - 2;
 	data.player = &player;
+	check_map(data)
 	player.x = 0;
 	player.y = 0;
-	data.colectibles = 0;
-	data.moves = 3;
+	data.moves = 0;
 	game(&data);
 }
 
