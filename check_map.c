@@ -21,8 +21,11 @@ int	check_map(t_data *data)
 	content.collectible = 0;
 	content.empty = 0;
 	content.obstacle = 0;
+	get_player_pos(data);
 	check_elements(data, &content);
 	check_border(data);
+	data->bfs_map = dup_tab(data);
+	bfs(data,data->player->x, data->player->y);
 	return (0);
 }
 
@@ -100,8 +103,15 @@ is big but he does not need more than 1 exit)\n", 1);
 		ft_putstr_fd("Error\nu didn't close the map, \
 shrek ran away...(or the map isnt a rectangle...)\n", 1);
 	if (error == 5)
-		ft_putstr_fd("Error\nshrek has been slayed by a mysterious character\
-(wtf is this input ???)(WAIT YOU KILLED SHREK ??? I HATE YOU FR)", 1);
+		ft_putstr_fd("Error\nshrek has been slayed by a mysterious character \
+(wtf is this input ?)(WAIT YOU KILLED SHREK ? \
+I HATE YOU, YOU SHOULD KYS)\n", 1);
+	if (error == 6)
+		ft_putstr_fd("Error\nwe're in a dimension where shrek does not exist, life is sad \
+(you forgot to put a 'P ')\n", 1);
+	if (error == 7)
+		ft_putstr_fd("Error\nshrek cannot is stuck by a wall and he cannot take the donkey or \
+join the toilets.\nhe's sad\nhope u'r proud of you...\n(check if the map is solvable)\n", 1);
 	exit (0);
 }
 
@@ -120,14 +130,43 @@ void	get_player_pos(t_data *data)
 			{
 				data->player->x = j;
 				data->player->y = i;
+				return ;
 			}
 		}
-
 	}
+	print_error(data, 6);
 }
 
-
-void	bfs(t_data *data, char **map)
+char **dup_tab(t_data *data)
 {
+	char	**returned;
+	int		i;
+	int		len;
 
+	len = 0;
+	i = 0;
+	while(data->map[len])
+		len++;
+	returned = malloc (sizeof(char*) * (len + 1));
+	while(i < len)
+	{
+		returned[i] = ft_strdup(data->map[i]);
+		i++;
+	}
+	returned[i] = 0;
+	return (returned);
+}
+
+void	bfs(t_data *data, int x, int y)
+{
+	if (data->bfs_map[x][y] != '1' && data->bfs_map[x][y] != 'A')
+		data->bfs_map[x][y] = 'A';
+	if (data->bfs_map[x+1][y] != '1' && data->bfs_map[x+1][y] != 'A')
+		bfs(data, x + 1, y);
+	if (data->bfs_map[x-1][y] != '1' && data->bfs_map[x-1][y] != 'A')
+		bfs(data, x - 1, y);
+	if (data->bfs_map[x][y+1] != '1' && data->bfs_map[x][y+1] != 'A')
+		bfs(data, x, y + 1);
+	if (data->bfs_map[x][y-1] != '1' && data->bfs_map[x][y-1] != 'A')
+		bfs(data, x, y - 1);
 }

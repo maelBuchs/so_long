@@ -37,6 +37,8 @@ void	init_textures(t_data *data)
 	int	img_width;
 	int	img_height;
 
+	data -> visited = mlx_xpm_file_to_image
+		(data -> mlx, "texture/parsed.xpm", &img_width, &img_height);
 	data -> goal = mlx_xpm_file_to_image
 		(data -> mlx, "texture/goal.xpm", &img_width, &img_height);
 	data -> character = mlx_xpm_file_to_image
@@ -77,19 +79,28 @@ void put_misc(char c, t_data *data, int i, int j)
 		mlx_put_image_to_window
 				(data -> mlx, data -> win, data -> obstacle, 32 * j, 32 * i);
 	if (c == 'C')
+	{
+		if(data->bfs_map[i][j]!= 'A')
+			print_error(data, 7);
 		mlx_put_image_to_window
 				(data -> mlx, data -> win, data -> enemy, 32 * j, 32 * i);
+	}
 	if (c == 'E')
+	{
+		if(data->bfs_map[i][j]!= 'A')
+			print_error(data, 7);
 		mlx_put_image_to_window
-				(data -> mlx, data -> win, data -> goal, 32 * j, 32 * i);
+			(data -> mlx, data -> win, data -> goal, 32 * j, 32 * i);
+	}
 	if (c == 'C' && data->moves == 0)
 		data->collectibles++;
 }
 
 int	redraw(t_data *data)
 {
-	t_character *player = data->player;
+	t_character	*player;
 
+	player = data->player;
 	if (data->moves == 0)
 		data->collectibles = 0;
 	set_background(data -> w, data -> h, data);
@@ -107,7 +118,7 @@ int	check_key(int keycode, t_data *data)
 {
 	t_character *player = data->player;
 
-	if (keycode == 119) 			//up  0 -1
+	if (keycode == 119) 				//up  0 -1
 		update_character(data, player, 1);
 	else if (keycode == 100) 			//right +1 0
 		update_character(data, player, 2);

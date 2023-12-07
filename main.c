@@ -20,10 +20,12 @@ int	game(t_data *data)
 	data -> mlx = mlx_init();
 	data -> win = mlx_new_window
 		(data -> mlx, data -> h * 32, data -> w * 32, "so_long");
-	set_pos(data);
 	init_textures(data);
 	set_background(data -> w, data -> h, data);
 	update_character(data, player, 0);
+
+	mlx_put_image_to_window
+				(data -> mlx, data -> win, data -> visited, 32 * player->x, 32 * player->y);
 	mlx_expose_hook(data -> win, redraw, data);
 	mlx_hook(data -> win, 17, 1L << 17, close_window, data);
 	mlx_key_hook(data -> win, check_key, data);
@@ -46,8 +48,6 @@ int	main(int argc, char *argv[])
 	data.h = ft_strlen(data.map[0]) - 2;
 	data.player = &player;
 	check_map(&data);
-	player.x = 0;
-	player.y = 0;
 	data.moves = 0;
 	game(&data);
 }

@@ -45,6 +45,7 @@ typedef	struct s_data
 	void			*enemy;
 	void			*background;
 	void			*goal;
+	void			*visited;
 	int				w;
 	int				h;
 	long			collectibles;
@@ -53,6 +54,7 @@ typedef	struct s_data
 	int				*collectibles_pos;
 	int				*tab;
 	char			**map;
+	char			**bfs_map;
 	t_character		*player;
 }	t_data;
 
@@ -66,8 +68,7 @@ int		update_character(t_data *data, t_character *player, int option);
 int		read_map(char *path, t_data *data);
 void	enlarge_char_tab(t_data *data);
 //void	free_tab(char ***tab, int len);
-void	print_tab(t_data *data);
-void	set_pos(t_data *data);
+void print_tab(char **tab);
 void	put_misc(char c, t_data *data, int i, int j);
 void	print_display(t_data *data);
 int		check_move(t_data *data);
@@ -76,5 +77,8 @@ void	check_elements(t_data *data, t_content *content);
 int		check_map(t_data *data);
 void	fancy_error(t_data *data, t_content *content);
 void	check_border(t_data *data);
+void	get_player_pos(t_data *data);
+void	bfs(t_data *data, int x, int y);
+char 	**dup_tab(t_data *data);
 
 #endif

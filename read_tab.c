@@ -89,23 +89,23 @@ void	enlarge_char_tab(t_data *data)
 // 	{
 // 		while (i < len - 1)
 // 		{
-// 		//	 if(data->map[i])
-// 		//	 	free(data->map[i]);
+// 			 if(data->map[i])
+// 			 	free(data->map[i]);
 // 			i++;
 // 		}
 // 		free(data->map);
 // 	}
 // }
 
-void print_tab(t_data *data)
+void print_tab(char **tab)
 {
 	int i;
 	i = 0;
 
-	while(data->map[i])
+	while(tab[i])
 	{
-		printf("%s", data->map[i]);
+		ft_putstr_fd(tab[i], 1);
 		i++;
 	}
-
+	ft_putchar_fd('\n', 1);
 }

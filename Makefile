@@ -1,8 +1,8 @@
 NAME =	so_long
 
 CC = gcc
-CFLAGS = -g
-# CFLAGS = -Wall -Wextra -Werror -g
+# CFLAGS = -g
+CFLAGS = -Wall -Wextra -Werror -g
 MLX = -L./minilibx-linux -lmlx -lX11 -lXext -lm
 RM = rm -rf
 HEAD = so_long.h
