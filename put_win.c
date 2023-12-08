@@ -34,19 +34,18 @@ void	set_background(int w, int h, t_data *data)
 	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
-	while (i < w)
+	while (j < h)
 	{
-		j = 0;
-		while (j < h)
+		i = 0;
+		while (i < w)
 		{
 			mlx_put_image_to_window
 				(data->mlx, data->win, data->background, 32 * j, 32 * i);
 			put_misc(data->map[i][j], data, i, j);
-			j++;
+			i++;
 		}
-		i++;
+		j++;
 	}
 }
 

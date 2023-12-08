@@ -14,7 +14,7 @@
 
 void	print_display(t_data *data)
 {
-	//write(1, "\033[H\033[J", 7);
+	write(1, "\033[H\033[J", 7);
 	ft_putnbr_fd(data->moves, 1);
 	ft_putstr_fd(" moves, loser\n", 1);
 	ft_putnbr_fd(data->collectibles, 1);
@@ -27,6 +27,8 @@ int	close_window(t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->background)
 		mlx_destroy_image(data->mlx, data->background);
+	if (data->goal)
+		mlx_destroy_image(data->mlx, data->goal);
 	if (data->character)
 		mlx_destroy_image(data->mlx, data->character);
 	if (data->enemy)
@@ -45,9 +47,9 @@ int	close_window(t_data *data)
 void	close_tabs(t_data *data)
 {
 	if (data->map)
-		free_tab(data->map, data->h);
+		free_tab(data->map, data->w);
 	if (data->bfs_map)
-		free_tab(data->bfs_map, data->h);
+		free_tab(data->bfs_map, data->w);
 }
 
 void	free_tab(char **tab, int len)
@@ -61,5 +63,25 @@ void	free_tab(char **tab, int len)
 			free(tab[i]);
 		i++;
 	}
-	free(tab);
+	if (tab)
+		free(tab);
+}
+
+char	*ft_strcat(char *dest, char *src)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (dest[i])
+		i++;
+	while (src[j])
+	{
+		dest[i] = src[j];
+		j++;
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

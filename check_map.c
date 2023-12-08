@@ -34,18 +34,18 @@ void	check_border(t_data *data)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < data->w)
+	j = 0;
+	while (j < data->w)
 	{
-		j = 0;
-		while (j < data->h)
+		i = 0;
+		while (i < data->h)
 		{
-			if (((i == 0 || j == 0 || i == data->w - 1 || j == data->h - 1))
-				&& data->map[i][j] != '1')
+			if ((i == 0 || j == 0 || i == data->h - 1 || j == data->w - 1)
+				&& data->map[j][i] != '1')
 				print_error(data, 4);
-			j++;
+			i++;
 		}
-		i++;
+		j++;
 	}
 }
 
@@ -85,4 +85,23 @@ I HATE YOU, YOU SHOULD KYS)\n", 1);
 join the toilets.\nhe's sad\nhope u'r proud of you...\n\
 (check if the map is solvable)\n", 1);
 	exit (0);
+}
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*array;
+	int		lenght;
+
+	array = NULL;
+	if (!s1 || !s2)
+		return (NULL);
+	lenght = (ft_strlen((char *)s1)) + (ft_strlen((char *)s2) + 1);
+	array = ft_calloc(lenght, sizeof(char));
+	if (array == NULL)
+		return (NULL);
+	ft_strcat(array, (char *)s1);
+	ft_strcat(array, (char *)s2);
+	if (s1)
+		free(s1);
+	return (array);
 }

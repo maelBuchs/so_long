@@ -80,5 +80,9 @@ void	get_player_pos(t_data *data);
 void	bfs(t_data *data, int x, int y);
 char	**dup_tab(t_data *data);
 void	close_tabs(t_data *data);
+size_t	ft_strlen_char(const char *s, char c);
+char	*ft_strjoin_free(char *s1, char *s2);
+char	*ft_strcat(char *dest, char *src);
+int		split_map(t_data *data, char *str);
 
 #endif

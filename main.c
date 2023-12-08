@@ -18,6 +18,8 @@ int	game(t_data *data)
 
 	player = data->player;
 	data->mlx = mlx_init();
+	if (!data->mlx)
+		close_tabs(data);
 	data->win = mlx_new_window
 		(data->mlx, data->h * 32, data->w * 32, "so_long");
 	init_textures(data);
@@ -42,14 +44,14 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	data.collectibles = 0;
-	data.h = read_map(argv[1], &data);
-	if (data.h <= 0)
+	data.w = read_map(argv[1], &data);
+	data.h = ft_strlen(data.map[0]);
+	if (data.w <= 0)
 	{
 		ft_putstr_fd("Error\nshrek is lying in an infinite emptiness \
 (include a REAL map path pls)\n", 1);
 		return (0);
 	}
-	data.h = ft_strlen(data.map[0]) - 2;
 	data.player = &player;
 	check_map(&data);
 	data.moves = 0;

@@ -16,18 +16,18 @@ int	update_character(t_data *data, t_character *player, int option)
 {
 	mlx_put_image_to_window
 		(data->mlx, data->win, data->background,
-		32 * player->y, 32 * player->x);
-	if (data->map[player->x][player->y] == 'E')
+		32 * player->x, 32 * player->y);
+	if (data->map[player->y][player->x] == 'E')
 		mlx_put_image_to_window
 			(data->mlx, data->win, data->goal,
-			32 * player->y, 32 * player->x);
-	if (option == 1 && data->map[player->x - 1][player->y] != '1')
+			32 * player->x, 32 * player->y);
+	if (option == 4 && data->map[player->y][player->x - 1] != '1')
 		data->player->x -= 1;
-	else if (option == 2 && data->map[player->x][player->y + 1] != '1')
+	else if (option == 3 && data->map[player->y + 1][player->x] != '1')
 		data->player->y += 1;
-	else if (option == 3 && data->map[player->x + 1][player->y] != '1')
+	else if (option == 2 && data->map[player->y][player->x + 1] != '1')
 		data->player->x += 1;
-	else if (option == 4 && data->map[player->x][player->y - 1] != '1')
+	else if (option == 1 && data->map[player->y - 1][player->x] != '1')
 		data->player->y -= 1;
 	else
 		data->moves--;
@@ -35,77 +35,70 @@ int	update_character(t_data *data, t_character *player, int option)
 	check_move(data);
 	mlx_put_image_to_window
 		(data->mlx, data->win, data->character,
-		32 * data->player->y, 32 * data->player->x);
+		32 * data->player->x, 32 * data->player->y);
 	return (0);
 }
 
 int	read_map(char *path, t_data *data)
 {
-	int	fd;
-	int	i;
-
-	fd = open(path, O_RDONLY);
-	if (fd <= 0)
-		return (-1);
-	i = 1;
-	data->map = malloc(sizeof(char *) * 2);
-	data->map[0] = get_next_line(fd);
-	data->map[1] = NULL;
-	while (data->map[i - 1])
-	{
-		enlarge_char_tab(data);
-		data->map[i] = get_next_line(fd);
-		i++;
-	}
-	close(fd);
-	return (i - 1);
-}
-
-void	enlarge_char_tab(t_data *data)
-{
-	char	**returned;
+	int		fd;
+	int		rd_l;
+	char	buffer[101];
+	char	*str;
 	int		i;
-	int		len;
 
-	len = 0;
-	i = 0;
-	while (data->map[len])
-		len++;
-	returned = malloc (sizeof(char *) * (len + 2));
-	while (i < len)
+	str = ft_strdup("");
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	rd_l = read(fd, buffer, 100);
+	while (rd_l > 0)
 	{
-		returned[i] = data->map[i];
-		i++;
+		buffer[rd_l] = 0;
+		str = ft_strjoin_free(str, buffer);
+		rd_l = read(fd, buffer, 100);
 	}
-	returned[i] = NULL;
-	returned[i + 1] = NULL;
-	free(data->map);
-	data->map = returned;
+	i = split_map(data, str);
+	if (str)
+		free(str);
+	return (i);
 }
 
-void	print_tab(char **tab)
+int	split_map(t_data *data, char *str)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	data->map = ft_split(str, '\n');
+	data->w = ft_strlen_char(data->map[i], '\r');
+	while (data->map[i])
 	{
-		ft_putstr_fd(tab[i], 1);
+		data->map[i][data->w] = 0;
 		i++;
 	}
-	ft_putchar_fd('\n', 1);
+	return (i);
+}
+
+size_t	ft_strlen_char(const char *s, char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	return (i);
 }
 
 int	check_move(t_data *data)
 {
-	if (data->map[data->player->x][data->player->y] == 'C' &&
+	if (data->map[data->player->y][data->player->x] == 'C' &&
 		data->player->x != 0 && data->player->y != 0)
 	{
 		data->collectibles--;
-		data->map[data->player->x][data->player->y] = '0';
+		data->map[data->player->y][data->player->x] = '0';
 	}
-	if (data->collectibles == 0 && data->map[data->player->x][data->player
-		->y] == 'E' && data->player->x != 0 && data->player->y != 0)
+	if (data->collectibles == 0 && data->map[data->player->y][data->player
+		->x] == 'E' && data->player->x != 0 && data->player->y != 0)
 		close_window(data);
 	return (0);
 }

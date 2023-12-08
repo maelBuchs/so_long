@@ -6,7 +6,7 @@
 /*   By: mbuchs <mael@buchs.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:56:48 by mbuchs            #+#    #+#             */
-/*   Updated: 2023/12/07 18:52:56 by mbuchs           ###   ########.fr       */
+/*   Updated: 2023/12/08 22:45:32 by mbuchs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ char	**dup_tab(t_data *data)
 	return (returned);
 }
 
-void	bfs(t_data *data, int x, int y)
+void	bfs(t_data *data, int y, int x)
 {
 	if (data->bfs_map[x][y] != '1' && data->bfs_map[x][y] != 'A')
 		data->bfs_map[x][y] = 'A';
 	if (data->bfs_map[x + 1][y] != '1' && data->bfs_map[x + 1][y] != 'A')
-		bfs(data, x + 1, y);
+		bfs(data, y, x + 1);
 	if (data->bfs_map[x - 1][y] != '1' && data->bfs_map[x - 1][y] != 'A')
-		bfs(data, x - 1, y);
+		bfs(data, y, x - 1);
 	if (data->bfs_map[x][y + 1] != '1' && data->bfs_map[x][y + 1] != 'A')
-		bfs(data, x, y + 1);
+		bfs(data, y + 1, x);
 	if (data->bfs_map[x][y - 1] != '1' && data->bfs_map[x][y - 1] != 'A')
-		bfs(data, x, y - 1);
+		bfs(data, y - 1, x);
 }
 
 void	check_elements(t_data *data, t_content *content)
@@ -96,5 +96,3 @@ void	check_elements(t_data *data, t_content *content)
 		return ;
 	fancy_error(data, content);
 }
-
-
