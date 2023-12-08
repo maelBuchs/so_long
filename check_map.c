@@ -84,6 +84,8 @@ I HATE YOU, YOU SHOULD KYS)\n", 1);
 		ft_putstr_fd("Error\nshrek cannot is stuck by a wall and he cannot take the donkey or \
 join the toilets.\nhe's sad\nhope u'r proud of you...\n\
 (check if the map is solvable)\n", 1);
+	if (error == 8)
+		ft_putstr_fd("Error\nthe map was too crazy for shrek (invalid map format)\n", 1);
 	exit (0);
 }
 

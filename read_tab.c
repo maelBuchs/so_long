@@ -52,6 +52,8 @@ int	read_map(char *path, t_data *data)
 	if (fd < 0)
 		return (0);
 	rd_l = read(fd, buffer, 100);
+	if (!rd_l)
+		return (0);
 	while (rd_l > 0)
 	{
 		buffer[rd_l] = 0;
@@ -67,19 +69,22 @@ int	read_map(char *path, t_data *data)
 int	split_map(t_data *data, char *str)
 {
 	int	i;
+	int len;
 
 	i = 0;
 	data->map = ft_split(str, '\n');
-	data->w = ft_strlen_char(data->map[i], '\r');
+	len = ft_strlen_char(data->map[0], '\r');
 	while (data->map[i])
 	{
-		data->map[i][data->w] = 0;
+		if (ft_strlen_char(data->map[i], '\r') !=  len)
+			return (0);
+		data->map[i][len] = 0;
 		i++;
 	}
 	return (i);
 }
 
-size_t	ft_strlen_char(const char *s, char c)
+int	ft_strlen_char(const char *s, char c)
 {
 	size_t	i;
 
