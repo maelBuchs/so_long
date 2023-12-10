@@ -84,5 +84,7 @@ int		ft_strlen_char(const char *s, char c);
 char	*ft_strjoin_free(char *s1, char *s2);
 char	*ft_strcat(char *dest, char *src);
 int		split_map(t_data *data, char *str);
-
+void init_struct(t_data *data);
+void check_exension(char *str);
+void	print_error_2(t_data *data, int error);
 #endif

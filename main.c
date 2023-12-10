@@ -32,6 +32,30 @@ int	game(t_data *data)
 	return (0);
 }
 
+void init_struct(t_data *data)
+{
+	data->w = 0;
+	data->h = 0;
+	data->collectibles = 0;
+	data->moves = 0;
+}
+
+void check_exension(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	if (i > 4)
+	{
+		if (!(str[i - 1] == 'r' && str[i - 2] == 'e' && str[i - 3] == 'b' && str[i - 4] == '.'))
+		{
+			ft_putstr_fd("Error\nshrek cannot read this dialect, sorry (wrong file extension)\n",1);
+			exit (0);
+		}
+	}
+}
 int	main(int argc, char *argv[])
 {
 	t_data		data;
@@ -43,15 +67,16 @@ int	main(int argc, char *argv[])
 (include a map path pls)\n", 1);
 		return (0);
 	}
+	check_exension(argv[1]);
 	data.collectibles = 0;
 	data.w = read_map(argv[1], &data);
-	data.h = ft_strlen(data.map[0]);
 	if (data.w <= 0)
 	{
 		ft_putstr_fd("Error\nshrek is lying in an infinite emptiness \
 (include a REAL map path pls)\n", 1);
 		return (0);
 	}
+	data.h = ft_strlen(data.map[0]);
 	data.player = &player;
 	check_map(&data);
 	data.moves = 0;

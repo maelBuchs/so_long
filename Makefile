@@ -12,6 +12,7 @@ SRCS = 	main.c\
 		use_map.c\
 		check_map.c\
 		is_solvable.c\
+		error_messages.c\
 
 OBJS = $(SRCS:.c=.o)
 
