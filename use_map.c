@@ -47,15 +47,15 @@ int	close_window(t_data *data)
 void	close_tabs(t_data *data)
 {
 	if (data->map)
-		free_tab(data->map, 2);
+		free_tab(data->map);
 	if (data->bfs_map)
-		free_tab(data->bfs_map, 2);
+		free_tab(data->bfs_map);
 }
 
-void	free_tab(char **tab, int len)
+void	free_tab(char **tab)
 {
 	int	i;
-	(void) len;
+
 	i = 0;
 	while (tab[i] != 0)
 	{

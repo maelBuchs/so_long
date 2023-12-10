@@ -32,7 +32,7 @@ int	game(t_data *data)
 	return (0);
 }
 
-void init_struct(t_data *data)
+void	init_struct(t_data *data)
 {
 	data->w = 0;
 	data->h = 0;
@@ -40,22 +40,25 @@ void init_struct(t_data *data)
 	data->moves = 0;
 }
 
-void check_exension(char *str)
+void	check_exension(char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	if (i > 4)
 	{
-		if (!(str[i - 1] == 'r' && str[i - 2] == 'e' && str[i - 3] == 'b' && str[i - 4] == '.'))
+		if (!(str[i - 1] == 'r' && str[i - 2] == 'e'
+				&& str[i - 3] == 'b' && str[i - 4] == '.'))
 		{
-			ft_putstr_fd("Error\nshrek cannot read this dialect, sorry (wrong file extension)\n",1);
+			ft_putstr_fd("Error\nshrek cannot read this dialect, \
+sorry (wrong file extension)\n", 1);
 			exit (0);
 		}
 	}
 }
+
 int	main(int argc, char *argv[])
 {
 	t_data		data;
