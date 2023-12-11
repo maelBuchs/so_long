@@ -76,8 +76,8 @@ void	print_error_3(t_data *data, int error)
 		ft_putstr_fd("Error\nthe map's name was too goofy(map isnt .ber)\n", 1);
 	if (error == 10)
 	{
-		ft_putstr_fd("Error\not a real rectangle or one line is empty1...\n", 1);
+		ft_putstr_fd("Error\not a real rectangle or one line is empty...\n", 1);
 		if (data->map)
 			free_tab(data->map);
-	}	
+	}
 }

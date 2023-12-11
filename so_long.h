@@ -66,7 +66,7 @@ int		game(t_data *data);
 int		update_character(t_data *data, t_character *player, int option);
 int		read_map(char *path, t_data *data);
 void	enlarge_char_tab(t_data *data);
-void	free_tab(char **tab, int len);
+void	free_tab(char **tab);
 void	print_tab(char **tab);
 void	put_misc(char c, t_data *data, int i, int j);
 void	print_display(t_data *data);
